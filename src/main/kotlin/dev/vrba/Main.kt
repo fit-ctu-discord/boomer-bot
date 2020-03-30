@@ -18,6 +18,8 @@ fun main()
     val config = BoomerBotConfig(
         env("MEME_CHANNEL_ID").toLong(),
         env("BOOMERS_CHANNEL_ID").toLong(),
+        env("BOOMER_ROLE_ID").toLong(),
+        env("MEME_MASTER_ROLE_ID").toLong(),
         env("BOOMER_EMOJI_ID").toLong(),
         env("BOOMER_EMOJI_THRESHOLD").toInt()
     )
