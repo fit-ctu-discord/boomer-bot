@@ -17,7 +17,9 @@ object BoomerImage
         "https://i.imgur.com/MPw3EYt.png",
         "https://i.imgur.com/9Y9oW3G.png",
         "https://i.imgur.com/kt9H1mE.png",
-        "https://i.imgur.com/kFp4zTY.png"
+        "https://i.imgur.com/kFp4zTY.png",
+        "https://i.imgur.com/pdCJdTj.png",
+        "https://i.imgur.com/10oHAvw.jpg"
     )
     
     val forIntroduction: String
