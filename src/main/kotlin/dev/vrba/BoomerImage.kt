@@ -6,7 +6,8 @@ object BoomerImage
         "https://i.imgur.com/mllwVTT.gif",
         "https://i.imgur.com/vRRzfwB.png",
         "https://i.imgur.com/dtjDrD8.png",
-        "https://i.imgur.com/mYQBAro.png"
+        "https://i.imgur.com/mYQBAro.png",
+	"https://i.imgur.com/F4Acprg.png"
     )
     
     private val repeatedBoomerPostingImages = listOf(
@@ -19,7 +20,8 @@ object BoomerImage
         "https://i.imgur.com/kt9H1mE.png",
         "https://i.imgur.com/kFp4zTY.png",
         "https://i.imgur.com/pdCJdTj.png",
-        "https://i.imgur.com/10oHAvw.jpg"
+        "https://i.imgur.com/10oHAvw.jpg",
+	"https://i.imgur.com/usQD7FK.png"
     )
     
     val forIntroduction: String
