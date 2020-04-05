@@ -30,7 +30,7 @@ class BoomerBot
         {
             if (this.shouldReactTo(event))
             {
-                event.message.addReaction("❤️")
+                event.message.addReaction("💖")
             }
         }
 
