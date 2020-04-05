@@ -78,6 +78,7 @@ class BoomerBot
     fun start()
     {
         this.client.addReactionAddListener(ReactionListener())
+        this.client.addMessageCreateListener(MessageListener())
     }
     
     
