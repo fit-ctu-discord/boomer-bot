@@ -6,7 +6,9 @@ import org.javacord.api.entity.emoji.KnownCustomEmoji
 import org.javacord.api.entity.message.Message
 import org.javacord.api.entity.message.embed.EmbedBuilder
 import org.javacord.api.entity.user.User
+import org.javacord.api.event.message.MessageCreateEvent
 import org.javacord.api.event.message.reaction.ReactionAddEvent
+import org.javacord.api.listener.message.MessageCreateListener
 import org.javacord.api.listener.message.reaction.ReactionAddListener
 import java.awt.Color
 
@@ -21,7 +23,27 @@ class BoomerBot
         .orElseThrow {
             throw RuntimeException("Cannot find boomer emoji by its id: " + config.boomerEmoji)
         }
-    
+
+    private inner class MessageListener : MessageCreateListener
+    {
+        override fun onMessageCreate(event: MessageCreateEvent)
+        {
+            if (this.shouldReactTo(event))
+            {
+                event.message.addReaction("💖")
+            }
+        }
+
+        private fun shouldReactTo(event: MessageCreateEvent): Boolean
+        {
+            val channel = event.channel ?: return false
+            val content = event.message.content
+
+            return channel.id == config.boomersChannelId &&
+                   content.toLowerCase().startsWith("good bot")
+        }
+    }
+
     private inner class ReactionListener : ReactionAddListener
     {
         override fun onReactionAdd(event: ReactionAddEvent)
@@ -56,6 +78,7 @@ class BoomerBot
     fun start()
     {
         this.client.addReactionAddListener(ReactionListener())
+        this.client.addMessageCreateListener(MessageListener())
     }
     
     
