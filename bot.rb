@@ -1,7 +1,6 @@
-require_relative "config.rb"
+require_relative "config"
 
 unless defined? BoomerBot::CONFIG
-  puts "Did you copied the config.example.rb file to config.rb?"
   puts "Cannot find BoomerBot::CONFIG, exiting."
   exit 1
 end
