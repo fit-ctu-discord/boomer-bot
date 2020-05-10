@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module BoomerBot
   class Image
-    def Image.introduction_image
+    def self.introduction_image
       %w[
         https://i.imgur.com/mllwVTT.gif
         https://i.imgur.com/vRRzfwB.png
@@ -10,7 +12,7 @@ module BoomerBot
       ].sample
     end
 
-    def Image.already_a_boomer_image
+    def self.already_a_boomer_image
       %w[
         https://i.imgur.com/suBmBZ9.png
         https://i.imgur.com/wRuR5Fr.png

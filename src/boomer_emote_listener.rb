@@ -1,9 +1,14 @@
+# frozen_string_literal: true
+
 require_relative 'boomer_image'
+
 
 module BoomerBot
   module Listeners
-    class BoomerEmoteAddedListener
 
+    include Discordrb::Webhooks
+
+    class BoomerEmoteAddedListener
       def initialize(bot)
         @bot = bot
         @config = BoomerBot::CONFIG
@@ -13,9 +18,8 @@ module BoomerBot
 
       def register
         @bot.reaction_add do |event|
-
           # If the reaction is a boomer emote in the meme channel
-          if event.emoji.id == @config[:boomer_emote_id] and event.channel.id == @config[:meme_channel_id]
+          if (event.emoji.id == @config[:boomer_emote_id]) && (event.channel.id == @config[:meme_channel_id])
 
             user = event.message.user
 
@@ -48,15 +52,15 @@ module BoomerBot
           description = 'Ladies and gentlemen, allow me to introduce a new boomer over here.'
 
           # Give the user a boomer role, so he could feel ashamed
-          self.add_boomer_role_to_user event
+          add_boomer_role_to_user event
         end
 
         embed = Discordrb::Webhooks::Embed.new
-        embed.title = "Boomer alert!"
+        embed.title = 'Boomer alert!'
         embed.description = description
         embed.color = '#E0115F'
         embed.image = Discordrb::Webhooks::EmbedImage.new url: image
-        embed.add_field name: "Boomer", value: user.mention, inline: true
+        embed.add_field name: 'Boomer', value: user.mention, inline: true
 
         boomers_count = event.server.members.count do |member|
           member.roles.any? do |role|
@@ -80,17 +84,18 @@ module BoomerBot
 
         embed = Discordrb::Webhooks::Embed.new
         embed.title = 'That boomer shit'
-        embed.author = Discordrb::Webhooks::EmbedAuthor.new name: message.user.username, icon_url: message.user.avatar_url
+        embed.author = EmbedAuthor.new name: message.user.username,
+                                       icon_url: message.user.avatar_url
         embed.description = message.content
         embed.timestamp = message.timestamp
         embed.color = '#E0115F'
 
         # Connect image attachments as embed image, all other attachments as their url
         message.attachments.each do |attachment|
-          if attachment.image? and not attachment.url.end_with? ".mp4"
+          if attachment.image? && (!attachment.url.end_with? '.mp4')
             embed.image = Discordrb::Webhooks::EmbedImage.new url: attachment.url
           else
-            embed.add_field name: "Attached file", value: attachment.url
+            embed.add_field name: 'Attached file', value: attachment.url
           end
         end
 

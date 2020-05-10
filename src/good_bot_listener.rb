@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 module BoomerBot
   module Listeners
-
     class GoodBotListener
-
       def initialize(bot)
         @bot = bot
         @config = BoomerBot::CONFIG
