@@ -17,9 +17,11 @@ module BoomerBot
           # If the reaction is a boomer emote in the meme channel
           if event.emoji.id == @config[:boomer_emote_id] and event.channel.id == @config[:meme_channel_id]
 
+            user = event.message.user
+
             # Is the sender member of the elite meme master society
             # We can assume, that the user is instance of Discordrb::Member
-            unless event.user.roles.any? { |role| role.id == @config[:meme_master_role_id] }
+            unless user.roles.any? { |role| role.id == @config[:meme_master_role_id] }
               boomer_reactions = event.message.reactions[event.emoji.name].count
 
               # If the boomer potential is too high to handle
@@ -35,7 +37,8 @@ module BoomerBot
       private
 
       def send_boomer_alert(event)
-        already_boomer = event.user.roles.any? { |role| role.id == @config[:boomer_role_id] }
+        user = event.message.user
+        already_boomer = user.roles.any? { |role| role.id == @config[:boomer_role_id] }
 
         if already_boomer
           image = BoomerBot::Image.already_a_boomer_image
@@ -53,10 +56,10 @@ module BoomerBot
         embed.description = description
         embed.color = '#E0115F'
         embed.image = Discordrb::Webhooks::EmbedImage.new url: image
-        embed.add_field name: "Boomer", value: event.user.mention, inline: true
+        embed.add_field name: "Boomer", value: user.mention, inline: true
 
-        boomers_count = event.server.members.count do |user|
-          user.roles.any? do |role|
+        boomers_count = event.server.members.count do |member|
+          member.roles.any? do |role|
             role.id == @config[:boomer_role_id]
           end
         end
@@ -69,7 +72,7 @@ module BoomerBot
 
       def add_boomer_role_to_user(event)
         boomer_role = event.server.roles.find { |role| role.id == @config[:boomer_role_id] }
-        event.user.add_role boomer_role
+        event.message.user.add_role boomer_role
       end
 
       def yeet(event)
