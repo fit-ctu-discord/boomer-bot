@@ -55,6 +55,14 @@ module BoomerBot
         embed.image = Discordrb::Webhooks::EmbedImage.new url: image
         embed.add_field name: "Boomer", value: event.user.mention, inline: true
 
+        boomers_count = event.server.members.count do |user|
+          user.roles.any? do |role|
+            role.id == @config[:boomer_role_id]
+          end
+        end
+
+        embed.add_field name: 'Total number of boomers on this server', value: boomers_count
+
         # Announce a new boomer / meme
         @boomer_channel.send_message(nil, nil, embed)
       end
