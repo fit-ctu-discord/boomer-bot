@@ -19,14 +19,14 @@ module BoomerBot
 
             # Is the sender member of the elite meme master society
             # We can assume, that the user is instance of Discordrb::Member
-            next if event.user.roles.any? { |role| role.id == @config[:meme_master_role_id] }
+            unless event.user.roles.any? { |role| role.id == @config[:meme_master_role_id] }
+              boomer_reactions = event.message.reactions[event.emoji.name].count
 
-            boomer_reactions = event.message.reactions[event.emoji.name].count
-
-            # If the boomer potential is too high to handle
-            if boomer_reactions >= @config[:boomer_emote_threshold]
-              send_boomer_alert event
-              yeet event
+              # If the boomer potential is too high to handle
+              if boomer_reactions >= @config[:boomer_emote_threshold]
+                send_boomer_alert event
+                yeet event
+              end
             end
           end
         end
