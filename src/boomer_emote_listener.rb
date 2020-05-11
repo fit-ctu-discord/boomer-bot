@@ -2,12 +2,11 @@
 
 require_relative 'boomer_image'
 
-
 module BoomerBot
   module Listeners
-
     include Discordrb::Webhooks
 
+    # The main listener watching out for boomers arising in the meme channel
     class BoomerEmoteAddedListener
       def initialize(bot)
         @bot = bot
