@@ -4,8 +4,6 @@ require_relative 'boomer_image'
 
 module BoomerBot
   module Listeners
-    include Discordrb::Webhooks
-
     # The main listener watching out for boomers arising in the meme channel
     class BoomerEmoteAddedListener
       def initialize(bot)
@@ -83,7 +81,7 @@ module BoomerBot
 
         embed = Discordrb::Webhooks::Embed.new
         embed.title = 'That boomer shit'
-        embed.author = EmbedAuthor.new name: message.user.username,
+        embed.author = Discordrb::Webhooks::EmbedAuthor.new name: message.user.username,
                                        icon_url: message.user.avatar_url
         embed.description = message.content
         embed.timestamp = message.timestamp
