@@ -30,10 +30,10 @@ module BoomerBot
 
               # If the boomer potential is too high to handle
               if boomer_reactions >= @config[:boomer_emote_threshold]
-                p @messages_to_process
+                @messages_to_process.push event.message.id
                 send_boomer_alert event
                 yeet event
-                p @messages_to_process
+                @messages_to_process.delete event.message.id
               end
             end
           end
