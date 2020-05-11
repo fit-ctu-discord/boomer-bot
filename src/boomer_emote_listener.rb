@@ -11,6 +11,7 @@ module BoomerBot
         @config = BoomerBot::CONFIG
         @meme_channel = @bot.channel @config[:meme_channel_id]
         @boomer_channel = @bot.channel @config[:boomers_channel_id]
+        @messages_to_process = []
       end
 
       def register
@@ -22,13 +23,17 @@ module BoomerBot
 
             # Is the sender member of the elite meme master society
             # We can assume, that the user is instance of Discordrb::Member
-            unless user.roles.any? { |role| role.id == @config[:meme_master_role_id] }
+            unless user.roles.any? { |role| role.id == @config[:meme_master_role_id] } || 
+                   @messages_to_process.include?(event.message.id)
+
               boomer_reactions = event.message.reactions[event.emoji.name].count
 
               # If the boomer potential is too high to handle
               if boomer_reactions >= @config[:boomer_emote_threshold]
+                p @messages_to_process
                 send_boomer_alert event
                 yeet event
+                p @messages_to_process
               end
             end
           end
