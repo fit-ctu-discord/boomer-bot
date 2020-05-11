@@ -12,8 +12,18 @@ module BoomerBot
                 @bot.message do |event|
                     message = event.message
 
-                    # No xd in my swamp
-                    if message.content.match(/xd/i)
+                    # Matches all kinds of XD:
+                    # xxxddd
+                    # xdd
+                    # XD
+                    # xD
+                    # :regional_indicator_x: :regional_indicator_d:
+                    # iks dé
+                    # iksd
+                    # ...
+                    pattern = /(?:(?:x|:regional_indicator_x:)+\s*(?:d|:regional_indicator_d:)+(?:[\s\W]|$)|iks\s*d[eé]?)/i
+
+                    if message.content.match pattern
                         react_with_boomer event
                     end
                 end
