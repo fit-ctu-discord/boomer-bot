@@ -24,7 +24,7 @@ module BoomerBot
         https://i.imgur.com/pdCJdTj.png https://i.imgur.com/10oHAvw.jpg
         https://i.imgur.com/usQD7FK.png https://i.imgur.com/1Bn3PAE.png
         https://i.imgur.com/T3AbKRR.png https://i.imgur.com/VbrweID.jpg
-        https://i.imgur.com/ZgEbCq2.jpg
+        https://i.imgur.com/ZgEbCq2.jpg https://i.imgur.com/SCMkChc.jpg
       ].sample
     end
   end
