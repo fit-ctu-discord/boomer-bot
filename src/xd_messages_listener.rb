@@ -9,18 +9,21 @@ module BoomerBot
             end
 
             def register 
-                @bot.message do |event|
+                @bot.message do |event| search_for_xds(event) end
+                @bot.message_edit do |event| search_for_xds(event) end
+            end
+
+            def search_for_xds(event)
                     # Do not react to messages outside the meme and planet commedy
-                    next unless [@config[:boomers_channel_id], @config[:meme_channel_id]].include?(event.channel.id)
+                    return unless [@config[:boomers_channel_id], @config[:meme_channel_id]].include?(event.channel.id)
 
                     message = event.message
-
-                    pattern = /(?:(?:x|:regional_indicator_x:)+\s*(?:d|:regional_indicator_d:)+(?:[\s\W]|$)|iks\s*d[eé]?)/i
+                    
+                    pattern = /(?:(?:x|🇽)+\s*(?:d|🇩)+(?:[\s\W]|$)|iks\s*d[eé]?)/i
 
                     if message.content.match pattern
                         react_with_boomer event
                     end
-                end
             end
 
             # Mark the boomer with the sign of true evil
