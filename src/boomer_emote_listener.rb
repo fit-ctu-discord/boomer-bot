@@ -85,7 +85,7 @@ module BoomerBot
         message = event.message
 
         embed = Discordrb::Webhooks::Embed.new
-        embed.title = 'That boomer shit'
+        embed.title = 'posted'
         embed.author = Discordrb::Webhooks::EmbedAuthor.new name: message.user.username,
                                        icon_url: message.user.avatar_url
         embed.description = message.content
