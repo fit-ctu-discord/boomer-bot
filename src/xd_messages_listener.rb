@@ -10,17 +10,11 @@ module BoomerBot
 
             def register 
                 @bot.message do |event|
+                    # Do not react to messages outside the meme and planet commedy
+                    next unless [@config[:boomers_channel_id], @config[:meme_channel_id]].include?(event.channel.id)
+
                     message = event.message
 
-                    # Matches all kinds of XD:
-                    # xxxddd
-                    # xdd
-                    # XD
-                    # xD
-                    # :regional_indicator_x: :regional_indicator_d:
-                    # iks dé
-                    # iksd
-                    # ...
                     pattern = /(?:(?:x|:regional_indicator_x:)+\s*(?:d|:regional_indicator_d:)+(?:[\s\W]|$)|iks\s*d[eé]?)/i
 
                     if message.content.match pattern
