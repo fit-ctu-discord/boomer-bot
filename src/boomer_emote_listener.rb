@@ -62,14 +62,12 @@ module BoomerBot
           add_boomer_role_to_user event
         end
 
-        # Added line
-
         embed = Discordrb::Webhooks::Embed.new
         embed.title = 'Boomer alert!'
         embed.description = description
         embed.color = '#E0115F'
         embed.image = Discordrb::Webhooks::EmbedImage.new url: image
-        embed.add_field name: 'Boomer', value: user.mention, inline: true #edited
+        embed.add_field name: 'Boomer', value: user.mention, inline: true
 
         boomers_count = event.server.members.count do |member|
           member.roles.any? do |role|
