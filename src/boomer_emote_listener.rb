@@ -19,13 +19,18 @@ module BoomerBot
           # If the reaction is a boomer emote in the meme channel
           if (event.emoji.id == @config[:boomer_emote_id]) && (event.channel.id == @config[:meme_channel_id])
 
+            # We can assume that the user is instance of Discordrb::Member
             user = event.message.user
 
-            # Is the sender member of the elite meme master society
-            # We can assume, that the user is instance of Discordrb::Member
-            unless user.roles.any? { |role| role.id == @config[:meme_master_role_id] } || 
-                   @messages_to_process.include?(event.message.id)
+            protected_roles = [
+              @config[:meme_master_role_id],
+              @config[:staff_role_id]
+            ]
 
+            # Is the sender member of the elite meme master society or the Staff?
+            is_protected = user.roles.any? { |role| protected_roles.include?(role.id) }
+
+            unless is_protected || @messages_to_process.include?(event.message.id)
               boomer_reactions = event.message.reactions[event.emoji.name].count
 
               # If the boomer potential is too high to handle
@@ -57,19 +62,20 @@ module BoomerBot
           add_boomer_role_to_user event
         end
 
+        # Added line
+
         embed = Discordrb::Webhooks::Embed.new
         embed.title = 'Boomer alert!'
         embed.description = description
         embed.color = '#E0115F'
         embed.image = Discordrb::Webhooks::EmbedImage.new url: image
-        embed.add_field name: 'Boomer', value: user.mention, inline: true
+        embed.add_field name: 'Boomer', value: user.mention, inline: true #edited
 
         boomers_count = event.server.members.count do |member|
           member.roles.any? do |role|
             role.id == @config[:boomer_role_id]
           end
         end
-
         embed.add_field name: 'Total number of boomers on this server', value: boomers_count
 
         # Announce a new boomer / meme
