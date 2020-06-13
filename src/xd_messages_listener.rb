@@ -19,7 +19,7 @@ module BoomerBot
 
                     message = event.message
                     
-                    pattern = /(?:(?:x|🇽)+\s*(?:d|🇩)+(?:[\s\W]|$)|iks\s*d[eé]?)/i
+                    pattern = /(?:(?:x|🇽)+\s*(?:d|🇩)+(?:[\s\W]|$)|[ie]ks\s*d[eéý]?)/i
 
                     if message.content.match pattern
                         react_with_boomer event
